@@ -1,0 +1,54 @@
+<project name="Fitnesse" default="all" basedir="."
+	xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <property name="fitnesse.port" value="9000" />
+  <property name="src.dir" value="src" />
+  <property name="classes.dir" value="classes" />
+
+  <!--
+    All your tasks go here.
+    -->
+    
+  <target name="compile" depends="resolve" description="compile the source (make)">
+    <mkdir dir="${classes.dir}" />
+    <ivy:cachepath pathid="compile.classpath" conf="default" />
+    <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="compile.classpath" debug="true" source="1.6" target="1.6" includeantruntime="false" />
+  </target>
+
+  <target name="run-fitnesse" depends="resolve" description="start FitNesse wiki">
+    <ivy:cachepath pathid="fitnesse.classpath" conf="fitnesse" />
+    <java classpathref="fitnesse.classpath" classname="fitnesseMain.FitNesseMain" fork="true" failonerror="true">
+      <arg value="-p" />
+      <arg value="${fitnesse.port}" />
+    </java>
+  </target>
+
+  <target name="resolve" depends="ivy-init">
+    <ivy:resolve />
+  </target>
+
+  <!--
+    Dependency management boilerplate:
+    -->
+  <property name="maven.central.url" value="http://repo2.maven.org/maven2" />
+
+  <available file="antlib/ivy.jar" type="file" property="have.ivy.jar"/>
+
+  <target name="ivy-init" depends="ivy-download">
+    <path id="ivy.class.path">
+      <fileset dir="antlib">
+        <include name="*.jar"/>
+      </fileset>
+    </path>
+    <taskdef resource="org/apache/ivy/ant/antlib.xml"
+            uri="antlib:org.apache.ivy.ant"
+            classpathref="ivy.class.path" />
+  </target>
+
+  <target name="ivy-download" unless="have.ivy.jar">
+    <mkdir dir="antlib" />
+    <get src="${maven.central.url}/org/apache/ivy/ivy/2.3.0/ivy-2.3.0.jar"
+            dest="antlib/ivy.jar" usetimestamp="true" verbose="true" />
+  </target>
+  
+</project>

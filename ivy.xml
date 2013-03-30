@@ -1,0 +1,18 @@
+<ivy-module version="2.0">
+  <info organisation="com.xebia.example"
+        module="fitnesse-ivy-classpath-demo" />
+
+  <configurations>
+    <conf name="default" visibility="public" />
+    <conf name="fitnesse" visibility="private" extends="default"
+          description="config used to launch FitNesse" />
+    <conf name="acceptance" visibility="public" extends="default"
+          description="config used to launch acceptance tests from FitNesse" />
+  </configurations>
+  <dependencies>
+    <!-- project dependencies -->
+    <dependency org="org.fitnesse" name="fitnesse" rev="20121220"
+                conf="default" />
+  </dependencies>
+</ivy-module>
+
