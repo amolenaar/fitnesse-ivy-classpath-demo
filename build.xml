@@ -9,18 +9,18 @@
     All your tasks go here.
     -->
     
-  <target name="compile" depends="resolve" description="compile the source (make)">
-    <mkdir dir="${classes.dir}" />
-    <ivy:cachepath pathid="compile.classpath" conf="default" />
-    <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="compile.classpath" debug="true" source="1.6" target="1.6" includeantruntime="false" />
-  </target>
-
-  <target name="run-fitnesse" depends="resolve" description="start FitNesse wiki">
-    <ivy:cachepath pathid="fitnesse.classpath" conf="fitnesse" />
-    <java classpathref="fitnesse.classpath" classname="fitnesseMain.FitNesseMain" fork="true" failonerror="true">
+  <target name="run-fitnesse" depends="compile" description="start FitNesse wiki">
+    <ivy:cachepath pathid="fitnesse.class.path" conf="fitnesse" />
+    <java classpathref="fitnesse.class.path" classname="fitnesseMain.FitNesseMain" fork="true" failonerror="true">
       <arg value="-p" />
       <arg value="${fitnesse.port}" />
     </java>
+  </target>
+
+  <target name="compile" depends="resolve" description="compile the source (make)">
+    <mkdir dir="${classes.dir}" />
+    <ivy:cachepath pathid="compile.class.path" conf="default" />
+    <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="compile.class.path" debug="true" source="1.6" target="1.6" includeantruntime="false" />
   </target>
 
   <target name="resolve" depends="ivy-init">
