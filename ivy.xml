@@ -12,7 +12,9 @@
   <dependencies>
     <!-- project dependencies -->
     <dependency org="org.fitnesse" name="fitnesse" rev="20121220"
-                conf="fitnesse->default" />
+                conf="fitnesse->default;acceptance->default" />
+    <dependency org="org.fitnesse.plugins" name="fitnesse-ivy-classpath" rev="0.1"
+                conf="fitnesse->default"/>
   </dependencies>
 </ivy-module>
 
